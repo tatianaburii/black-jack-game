@@ -1,19 +1,19 @@
 package homework_12;
 
 public interface Collection {
-    boolean add(Object o);//ok
+    boolean add(Object o);
 
-    boolean add(int index, Object o);//ok
+    boolean add(int index, Object o);
 
-    boolean delete(Object o);//ok
+    boolean delete(Object o);
 
     Object get(int index);
 
-    boolean contain(Object o);//ok
+    boolean contain(Object o);
 
-    boolean equals(Collection str);//ok
+    boolean equals(Collection str);
 
-    boolean clear();//ok
+    boolean clear();
 
     int size();
 

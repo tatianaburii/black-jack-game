@@ -28,8 +28,8 @@ public class MyArrayList implements Collection {
 
     public boolean add(int index, Object obj) {
         checkAndChangeSize();
-        if (index > count) {
-            index = count;
+        if (index > count || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("the index is incorrect");
         }
         if (count + 1 - index >= 0) {
             System.arraycopy(myArrayList, index, myArrayList, index + 1, count + 1 - index);
@@ -51,7 +51,7 @@ public class MyArrayList implements Collection {
     }
 
     public boolean delete(int index) {
-        if (index >= count || index < 0) return false;
+        if (index >= count || index < 0) throw new ArrayIndexOutOfBoundsException("the index is incorrect");
         System.arraycopy(myArrayList, index + 1, myArrayList, index, count - index);
         count--;
         return true;
