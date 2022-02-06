@@ -10,6 +10,7 @@ public class MyArrayListTest {
 
     @Before
     public void setUp() {
+
         myArrayList = new MyArrayList();
         myArrayList.add("one");
         myArrayList.add("two");
@@ -23,7 +24,6 @@ public class MyArrayListTest {
 
         assertEquals("four", myArrayList.get(3));
         assertEquals(4, myArrayList.size());
-
     }
 
     @Test
@@ -34,8 +34,8 @@ public class MyArrayListTest {
         assertEquals("one", myArrayList.get(0));
         assertEquals("point", myArrayList.get(1));
         assertEquals("two", myArrayList.get(2));
-
     }
+
     @Test
     public void AddElementsOfIndex_testArrayIndexOutOfBoundsException() {
 
@@ -117,9 +117,8 @@ public class MyArrayListTest {
         MyArrayList myArrayList2 = new MyArrayList();
 
         myArrayList2.add("one");
-        myArrayList2.add("two");
         myArrayList2.add("three");
-        myArrayList2.add("four");
+        myArrayList2.add("two");
 
         assertFalse(myArrayList.equals(myArrayList2));
     }
