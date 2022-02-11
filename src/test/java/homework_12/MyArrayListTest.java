@@ -1,4 +1,5 @@
-import homework_12.MyArrayList;
+package homework_12;
+
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
