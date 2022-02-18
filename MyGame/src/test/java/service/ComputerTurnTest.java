@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ComputerTurnTest {
 
 
-    @RepeatedTest(100)
+    @RepeatedTest(1000)
     void getComputerScore(){
         int result = new ComputerTurn().getComputerScore();
         System.out.println(result);
