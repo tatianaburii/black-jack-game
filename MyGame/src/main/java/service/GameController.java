@@ -27,15 +27,13 @@ public class GameController {
 
         try {
             while (numberOfGames++ != input) {
-                while (!(reader.readLine().equalsIgnoreCase("x"))) {
-                    int computerScore = computerTurn.getComputerScore();
-                    System.out.println(" Choose: \n [0] - Rock,\n [1] - Paper,\n [2] - Scissors");
-
-                    int playerScore = Integer.parseInt(reader.readLine());
-                    System.out.println(matrix.getResult()[playerScore][computerScore]);
-                    upDateStatistics(playerScore, computerScore);
-                    System.out.println("\n Продолжаем? \n [x] + [enter] - выход, \n [enter] - продолжить.");
-                }
+                int computerScore = computerTurn.getComputerScore();
+                System.out.println(" Choose: \n [0] - Rock,\n [1] - Paper,\n [2] - Scissors");
+                int playerScore = Integer.parseInt(reader.readLine());
+                System.out.println(matrix.getResult()[playerScore][computerScore]);
+                upDateStatistics(playerScore, computerScore);
+                System.out.println("\n Продолжаем? \n [x] + [enter] - выход, \n [enter] - продолжить.");
+                if(reader.readLine().equalsIgnoreCase("X")) System.exit(-1);
             }
 
         } catch (Exception e) {
@@ -46,11 +44,9 @@ public class GameController {
     }
 
     public void upDateStatistics(int playerScore, int computerScore) {
-        if (playerScore == 0 && computerScore == 1 || playerScore == 0 && computerScore == 2
-                || playerScore == 2 && computerScore == 1) {
+        if (playerScore == 0 && computerScore == 1 || playerScore == 0 && computerScore == 2 || playerScore == 2 && computerScore == 1) {
             player.setWin(player.getWin() + 1);
-        } else if (playerScore == 1 && computerScore == 0 || playerScore == 1 && computerScore == 2
-                || playerScore == 2 && computerScore == 0) {
+        } else if (playerScore == 1 && computerScore == 0 || playerScore == 1 && computerScore == 2 || playerScore == 2 && computerScore == 0) {
             player.setLost(player.getLost() + 1);
         } else {
             player.setDraw(player.getDraw() + 1);
