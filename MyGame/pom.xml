@@ -2,20 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>MyFirstProject</artifactId>
+        <groupId>org.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>MyFirstProject</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>MyGame</module>
-    </modules>
+    <artifactId>MyGame</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
 
     <build>
         <pluginManagement>
@@ -28,7 +28,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>RunApp</mainClass>
+                                <mainClass>RunGame</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
@@ -41,33 +41,33 @@
 
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+                   <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
-               <artifactId>lombok</artifactId>
-                 <version>1.18.22</version>
+                 <artifactId>lombok</artifactId>
+                   <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
-              <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <artifactId>junit</artifactId>
+                   <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                  <version>5.4.0</version>
+                  <artifactId>junit-jupiter-engine</artifactId>
+                     <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.vintage</groupId>
-                <artifactId>junit-vintage-engine</artifactId>
-                   <version>5.4.0</version>
+                 <artifactId>junit-vintage-engine</artifactId>
+                  <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
