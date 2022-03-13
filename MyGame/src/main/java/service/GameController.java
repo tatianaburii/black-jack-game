@@ -3,43 +3,44 @@ package service;
 import dto.Matrix;
 import dto.Player;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+
+import static java.lang.System.*;
 
 public class GameController {
     private Player player;
     private Matrix matrix;
     private ComputerTurn computerTurn;
     private int numberOfGames = 0;
-    public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    public static BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
     public void GameRun() throws IOException {
         matrix = new Matrix();
         computerTurn = new ComputerTurn();
 
-        System.out.println("Добрый день. Веедите ваше имя: ");
+        out.println("Добрый день. Веедите ваше имя: ");
         player = new Player(reader.readLine());
 
-        System.out.println("Сколько игор желаете сигрить?");
+        out.println("Сколько игор желаете сигрить?");
         int input = Integer.parseInt(reader.readLine());
 
 
         try {
             while (numberOfGames++ != input) {
                 int computerScore = computerTurn.getComputerScore();
-                System.out.println(" Choose: \n [0] - Rock,\n [1] - Paper,\n [2] - Scissors");
+                out.println(" Choose: \n [0] - Rock,\n [1] - Paper,\n [2] - Scissors");
                 int playerScore = Integer.parseInt(reader.readLine());
-                System.out.println(matrix.getResult()[playerScore][computerScore]);
+                out.println(matrix.getResult()[playerScore][computerScore]);
                 upDateStatistics(playerScore, computerScore);
-                System.out.println("\n Продолжаем? \n [x] + [enter] - выход, \n [enter] - продолжить.");
-                if(reader.readLine().equalsIgnoreCase("X")) System.exit(-1);
+                out.println("\n Продолжаем? \n [x] + [enter] - выход, \n [enter] - продолжить.");
+                if (reader.readLine().equalsIgnoreCase("X")) exit(-1);
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            out.println(e.getMessage());
         } finally {
             printStatistics();
+            createFileAndWriteResult();
         }
     }
 
@@ -54,13 +55,13 @@ public class GameController {
     }
 
     public void printStatistics() {
-        System.out.println();
-        System.out.println("===============================================");
-        System.out.println("Игровая статистика для игрока : " + player.getName());
-        System.out.println("Выиграно   : " + player.getWin());
-        System.out.println("Проигранно : " + player.getLost());
-        System.out.println("Ничья      : " + player.getDraw());
-        System.out.println("===============================================");
+        out.println(player.toString());
+    }
+
+    public void createFileAndWriteResult() throws IOException {
+        PrintWriter writer = new PrintWriter((new FileWriter("/Users/tetyanaburii/Desktop/MyFirstProject/MyGame/src/main/java/result.txt", true)));
+        writer.println(player);
+        writer.close();
     }
 
 }
