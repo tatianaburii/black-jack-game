@@ -55,7 +55,7 @@ public class GameController {
     }
 
     public void printStatistics() {
-        out.println(player.toString());
+        out.println(player);
     }
 
     public void createFileAndWriteResult() throws IOException {
