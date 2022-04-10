@@ -7,16 +7,16 @@ public class Player {
     private int lost = 0;
     private int win = 0;
     private int draw = 0;
-    private Date date = new Date();
+//    private Date date = new Date();
 
     @Override
     public String toString() {
-        return "============================================" +
+        return
                 "\nИгровая статистика для игрока : " + name +
                 "\nПроигранно : " + lost  +
                 "\nВыиграно   : " + win +
                 "\nНичья      : " + draw +
-                "\n\n........" + date + "........" +
+//                "\n\n........" + date + "........" +
                 "\n============================================";
     }
 

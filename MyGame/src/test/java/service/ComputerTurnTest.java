@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ComputerTurnTest {
 
-
     @RepeatedTest(1000)
     void getComputerScore(){
         int result = new ComputerTurn().getComputerScore();
@@ -14,6 +13,4 @@ class ComputerTurnTest {
         assertTrue(result >= 0);
         assertTrue(result <= 2);
     }
-
-
 }
