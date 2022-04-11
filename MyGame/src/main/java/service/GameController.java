@@ -16,8 +16,6 @@ public class GameController {
 
     private static final Logger loggerDebug = LoggerFactory.getLogger("logger.debug");
     private static final Logger loggerResult = LoggerFactory.getLogger("logger.result");
-    //    private static final Logger loggerInfo = LoggerFactory.getLogger("logger.info");
-    private static final Logger loggerError = LoggerFactory.getLogger("logger.error");
 
     private static final String MESSAGE_PATTERN = "Example log from {}";
 
@@ -56,9 +54,9 @@ public class GameController {
             }
 
         } catch (Exception e) {
-            loggerError.error("Exception: " + e.getMessage());
+            loggerDebug.error("Exception: " + e.getMessage());
         } finally {
-            createFileAndWriteResult();
+//            createFileAndWriteResult();
             loggerResult.info(player.toString());
 
         }
@@ -79,17 +77,17 @@ public class GameController {
     }
 
 
-    public void createFileAndWriteResult() throws IOException {
-        String folder = File.separator + "Users";
-        folder = folder.concat(File.separator).concat("tetyanaburii")
-                .concat(File.separator)
-                .concat("Desktop").concat(File.separator)
-                .concat("MyFirstProject").concat(File.separator)
-                .concat("MyGame").concat(File.separator)
-                .concat("target").concat(File.separator).concat("result.txt");
-        PrintWriter writer = new PrintWriter((new FileWriter(folder, true)));
-        writer.println(player);
-        writer.close();
-    }
+//    public void createFileAndWriteResult() throws IOException {
+//        String folder = File.separator + "Users";
+//        folder = folder.concat(File.separator).concat("tetyanaburii")
+//                .concat(File.separator)
+//                .concat("Desktop").concat(File.separator)
+//                .concat("MyFirstProject").concat(File.separator)
+//                .concat("MyGame").concat(File.separator)
+//                .concat("target").concat(File.separator).concat("result.txt");
+//        PrintWriter writer = new PrintWriter((new FileWriter(folder, true)));
+//        writer.println(player);
+//        writer.close();
+//    }
 
 }
