@@ -1,11 +1,11 @@
 package service;
 
 import dto.Bundle;
-import dto.Languages;
 import dto.Matrix;
 import dto.Player;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.*;
@@ -21,13 +21,11 @@ public class GameController {
     private static final Logger loggerResult = LoggerFactory.getLogger("logger.result");
     public static ResourceBundle bundle;
 
-    public void GameRun(){
+    public void GameRun() {
 
         try {
             loggerDebug.debug("Start -->");
-            out.println("You should choose and input language: \nUK - українська, \nEN - English, \nDE - Deutsch.");
-            String inputLanguage = reader.readLine().toUpperCase();
-            bundle = chooseLanguage(Languages.valueOf(inputLanguage));
+            bundle = chooseLanguage();
             Matrix matrix = new Matrix();
             ComputerTurn computerTurn = new ComputerTurn();
             out.println(bundle.getString("inputName"));
@@ -50,7 +48,7 @@ public class GameController {
                     loggerDebug.debug("Game: " + numberOfGames + "/" + input);
                 } else loggerDebug.debug(" --> Finish!");
 
-                out.println( "\n" + bundle.getString("choice"));
+                out.println("\n" + bundle.getString("choice"));
 
                 if (reader.readLine().equalsIgnoreCase("X")) {
                     loggerDebug.debug("Player left the game  -->Finish!");
@@ -81,15 +79,24 @@ public class GameController {
     public void printStatistics() {
         out.println(player);
     }
-    public static ResourceBundle chooseLanguage(Languages language){
+
+    public static ResourceBundle chooseLanguage() throws IOException {
         ResourceBundle bundle = null;
-        switch (language){
-            case EN: bundle = Bundle.getBundle(new Locale("en"));
-            break;
-            case DE: bundle = Bundle.getBundle(new Locale("de"));
+        out.println("You should choose and input language: \n[1] - українська, \n[2] - English, \n[3] - Deutsch.");
+
+        switch (reader.readLine()) {
+            case "1":
+                bundle = Bundle.getBundle(new Locale("uk"));
                 break;
-            case UK: bundle = Bundle.getBundle(new Locale("uk"));
+            case "2":
+                bundle = Bundle.getBundle(new Locale("en"));
                 break;
+            case "3":
+                bundle = Bundle.getBundle(new Locale("de"));
+                break;
+            default:
+                out.println("Try again");
+                chooseLanguage();
         }
         return bundle;
     }

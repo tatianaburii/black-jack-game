@@ -5,6 +5,6 @@ import java.util.ResourceBundle;
 
 public class Bundle {
     public static ResourceBundle getBundle(Locale locale){
-        return ResourceBundle.getBundle("res", locale);
+        return ResourceBundle.getBundle("resourceBundle.res", locale);
     }
 }

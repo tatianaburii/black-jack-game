@@ -12,3 +12,5 @@
 2022-04-21 16:52:21,673 [DEBUG] [main          ] - Player: 0
 2022-04-21 16:52:21,674 [DEBUG] [main          ] - Computer: 2
 2022-04-21 16:52:21,674 [DEBUG] [main          ] -  --> Finish!
+2022-04-21 17:14:47,349 [DEBUG] [main          ] - Start -->
+2022-04-21 17:14:52,390 [ERROR] [main          ] - Exception: No enum constant dto.Languages.TY
