@@ -41,7 +41,7 @@ public class GameController {
                 loggerDebug.debug("Player: " + playerScore);
                 int computerScore = computerTurn.getComputerScore();
                 loggerDebug.debug("Computer: " + computerScore);
-                out.println(matrix.getResult()[playerScore][computerScore]);
+                out.println(bundle.getString(matrix.getResult()[playerScore][computerScore]));
                 upDateStatistics(playerScore, computerScore);
 
                 if (input - numberOfGames > 0) {
@@ -95,7 +95,7 @@ public class GameController {
                 bundle = Bundle.getBundle(new Locale("de"));
                 break;
             default:
-                out.println("Try again");
+                out.println("Try again.");
                 chooseLanguage();
         }
         return bundle;

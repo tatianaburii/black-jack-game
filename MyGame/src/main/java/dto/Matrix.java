@@ -8,21 +8,22 @@ import java.util.ResourceBundle;
 public class Matrix {
     ResourceBundle bundle = GameController.bundle;
     private final String[][] result = {
-            {bundle.getString("computerRock") + "\n" + bundle.getString("playerRock") + "\n" + bundle.getString("computerEqualsPlayer"),
-                    bundle.getString("computerPaper") + " \n" + bundle.getString("playerRock") + "\n" + bundle.getString("playerWin"),
-                    bundle.getString("computerScissors") + " \n" + bundle.getString("playerRock") + "\n" + bundle.getString("playerWin")},
+            {"computerRock, \n playerRock, \n computerEqualsPlayer",
+                    "computerPaper, \n playerRock, \n playerWin",
+                    "computerScissors, \n playerRock, \n playerWin"},
 
-            {bundle.getString("computerRock") + "\n" + bundle.getString("playerPaper") + "\n" + bundle.getString("computerWin"),
-                    bundle.getString("computerRock") + "\n" + bundle.getString("playerRock") + "\n" + bundle.getString("computerEqualsPlayer"),
-                    bundle.getString("computerScissors") + "\n" + bundle.getString("playerPaper") + "\n" + bundle.getString("computerWin")},
+            {"computerRock, \n playerPaper, \n computerWin",
+                    "computerRock, \n playerRock, \n computerEqualsPlayer",
+                   "computerScissors, \n playerPaper, \n computerWin"},
 
-            {bundle.getString("computerRock") + "\n" + bundle.getString("playerScissors") + "\n" + bundle.getString("computerWin"),
-                    bundle.getString("computerPaper") + "\n" + bundle.getString("playerScissors") + "\n" + bundle.getString("playerWin"),
-                    bundle.getString("computerRock") + "\n" + bundle.getString("playerRock") + "\n" + bundle.getString("computerEqualsPlayer")}
+            {"computerRock, \n playerScissors, \n computerWin",
+                    "computerPaper, \n playerScissors, \n playerWin",
+                    "computerRock, \n playerRock, \ncomputerEqualsPlayer"}
     };
 
 
     public String[][] getResult() {
         return result;
     }
+
 }
