@@ -1,10 +1,13 @@
 package service;
 
+import dto.Bundle;
+import dto.Languages;
 import dto.Matrix;
 import dto.Player;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.io.*;
 
 import static java.lang.System.*;
@@ -16,23 +19,26 @@ public class GameController {
 
     private static final Logger loggerDebug = LoggerFactory.getLogger("logger.debug");
     private static final Logger loggerResult = LoggerFactory.getLogger("logger.result");
+    public static ResourceBundle bundle;
 
-    private static final String MESSAGE_PATTERN = "Example log from {}";
+    public void GameRun(){
 
-    public void GameRun() throws IOException {
         try {
             loggerDebug.debug("Start -->");
+            out.println("You should choose and input language: \nUK - українська, \nEN - English, \nDE - Deutsch.");
+            String inputLanguage = reader.readLine().toUpperCase();
+            bundle = chooseLanguage(Languages.valueOf(inputLanguage));
             Matrix matrix = new Matrix();
             ComputerTurn computerTurn = new ComputerTurn();
-            out.println("Добрый день. Веедите ваше имя: ");
+            out.println(bundle.getString("inputName"));
             player = new Player(reader.readLine());
 
-            out.println("Сколько игор желаете сигрить?");
+            out.println(bundle.getString("numberOfGames"));
             int input = Integer.parseInt(reader.readLine());
-            loggerDebug.debug(" Количевсиво игор: " + input);
+            loggerDebug.debug("Number of games: " + input);
 
             while (numberOfGames++ != input) {
-                out.println(" Choose: \n [0] - Rock,\n [1] - Paper,\n [2] - Scissors");
+                out.println(bundle.getString("choiceMove"));
                 int playerScore = Integer.parseInt(reader.readLine());
                 loggerDebug.debug("Player: " + playerScore);
                 int computerScore = computerTurn.getComputerScore();
@@ -41,13 +47,13 @@ public class GameController {
                 upDateStatistics(playerScore, computerScore);
 
                 if (input - numberOfGames > 0) {
-                    loggerDebug.debug("Осталось игор: " + (input - numberOfGames));
+                    loggerDebug.debug("Game: " + numberOfGames + "/" + input);
                 } else loggerDebug.debug(" --> Finish!");
 
-                out.println("\n Продолжаем? \n [x] + [enter] - выход, \n [enter] - продолжить.");
+                out.println( "\n" + bundle.getString("choice"));
 
                 if (reader.readLine().equalsIgnoreCase("X")) {
-                    loggerDebug.debug("Пользователь вышел с игры  -->Finish!");
+                    loggerDebug.debug("Player left the game  -->Finish!");
                     loggerResult.info(player.toString());
                     exit(-1);
                 }
@@ -56,8 +62,8 @@ public class GameController {
         } catch (Exception e) {
             loggerDebug.error("Exception: " + e.getMessage());
         } finally {
-//            createFileAndWriteResult();
             loggerResult.info(player.toString());
+            printStatistics();
 
         }
     }
@@ -75,19 +81,17 @@ public class GameController {
     public void printStatistics() {
         out.println(player);
     }
-
-
-//    public void createFileAndWriteResult() throws IOException {
-//        String folder = File.separator + "Users";
-//        folder = folder.concat(File.separator).concat("tetyanaburii")
-//                .concat(File.separator)
-//                .concat("Desktop").concat(File.separator)
-//                .concat("MyFirstProject").concat(File.separator)
-//                .concat("MyGame").concat(File.separator)
-//                .concat("target").concat(File.separator).concat("result.txt");
-//        PrintWriter writer = new PrintWriter((new FileWriter(folder, true)));
-//        writer.println(player);
-//        writer.close();
-//    }
+    public static ResourceBundle chooseLanguage(Languages language){
+        ResourceBundle bundle = null;
+        switch (language){
+            case EN: bundle = Bundle.getBundle(new Locale("en"));
+            break;
+            case DE: bundle = Bundle.getBundle(new Locale("de"));
+                break;
+            case UK: bundle = Bundle.getBundle(new Locale("uk"));
+                break;
+        }
+        return bundle;
+    }
 
 }

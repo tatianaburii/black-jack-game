@@ -1,19 +1,26 @@
 package dto;
 
+import service.GameController;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class Matrix {
+    ResourceBundle bundle = GameController.bundle;
     private final String[][] result = {
-            {" Computer --> rock, \n Player --> rock \n Computer == Player",
-                    " Computer --> paper, \n Player --> rock \n Player win!",
-                    " Computer --> scissors, \n Player --> rock \n Player win!"},
+            {bundle.getString("computerRock") + "\n" + bundle.getString("playerRock") + "\n" + bundle.getString("computerEqualsPlayer"),
+                    bundle.getString("computerPaper") + " \n" + bundle.getString("playerRock") + "\n" + bundle.getString("playerWin"),
+                    bundle.getString("computerScissors") + " \n" + bundle.getString("playerRock") + "\n" + bundle.getString("playerWin")},
 
-            {" Computer --> rock, \n Player --> paper \n Computer win!",
-                    " Computer --> rock, \n Player --> rock \n Computer == Player",
-                    " Computer --> scissors, \n Player --> paper \n Computer win!"},
+            {bundle.getString("computerRock") + "\n" + bundle.getString("playerPaper") + "\n" + bundle.getString("computerWin"),
+                    bundle.getString("computerRock") + "\n" + bundle.getString("playerRock") + "\n" + bundle.getString("computerEqualsPlayer"),
+                    bundle.getString("computerScissors") + "\n" + bundle.getString("playerPaper") + "\n" + bundle.getString("computerWin")},
 
-            {" Computer --> rock, \n Player --> scissors \n Computer win!",
-                    " Computer --> paper, \n Player --> scissors \n Player win!",
-                    " Computer --> rock, \n Player --> rock \n Computer == Player"}
+            {bundle.getString("computerRock") + "\n" + bundle.getString("playerScissors") + "\n" + bundle.getString("computerWin"),
+                    bundle.getString("computerPaper") + "\n" + bundle.getString("playerScissors") + "\n" + bundle.getString("playerWin"),
+                    bundle.getString("computerRock") + "\n" + bundle.getString("playerRock") + "\n" + bundle.getString("computerEqualsPlayer")}
     };
+
 
     public String[][] getResult() {
         return result;
