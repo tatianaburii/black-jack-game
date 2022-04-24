@@ -24,29 +24,25 @@ public class GameController {
     public void GameRun() {
 
         try {
-            loggerDebug.debug("Start -->");
             bundle = chooseLanguage();
+            loggerDebug.debug(bundle.getString("start"));
             Matrix matrix = new Matrix();
             ComputerTurn computerTurn = new ComputerTurn();
-            out.println(bundle.getString("inputName"));
+            loggerDebug.debug(bundle.getString("inputName"));
             player = new Player(reader.readLine());
 
-            out.println(bundle.getString("numberOfGames"));
+            loggerDebug.debug(bundle.getString("numberOfGamesQuestion"));
             int input = Integer.parseInt(reader.readLine());
-            loggerDebug.debug("Number of games: " + input);
-
             while (numberOfGames++ != input) {
                 out.println(bundle.getString("choiceMove"));
                 int playerScore = Integer.parseInt(reader.readLine());
-                loggerDebug.debug("Player: " + playerScore);
                 int computerScore = computerTurn.getComputerScore();
-                loggerDebug.debug("Computer: " + computerScore);
-                out.println(bundle.getString(matrix.getResult()[playerScore][computerScore]));
+                printAction(playerScore, computerScore, matrix);
                 upDateStatistics(playerScore, computerScore);
 
                 if (input - numberOfGames > 0) {
-                    loggerDebug.debug("Game: " + numberOfGames + "/" + input);
-                } else loggerDebug.debug(" --> Finish!");
+                    loggerDebug.debug(bundle.getString("game") + numberOfGames + "/" + input);
+                } else loggerDebug.debug(bundle.getString("finish"));
 
                 out.println("\n" + bundle.getString("choice"));
 
@@ -60,7 +56,7 @@ public class GameController {
         } catch (Exception e) {
             loggerDebug.error("Exception: " + e.getMessage());
         } finally {
-            loggerResult.info(player.toString());
+            loggerResult.debug(player.toString());
             printStatistics();
 
         }
@@ -78,6 +74,12 @@ public class GameController {
 
     public void printStatistics() {
         out.println(player);
+    }
+    public void printAction(int playerScore, int computerScore, Matrix matrix){
+        loggerDebug.debug(bundle.getString(matrix.getPlayerScore()[playerScore]));
+        loggerDebug.debug(bundle.getString(matrix.getComputerScore()[computerScore]));
+        loggerDebug.debug(bundle.getString(matrix.getResult()[playerScore][computerScore]));
+
     }
 
     public static ResourceBundle chooseLanguage() throws IOException {
