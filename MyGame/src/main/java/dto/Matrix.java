@@ -2,18 +2,23 @@ package dto;
 
 public class Matrix {
     private final String[][] result = {
-            {" Computer --> rock, \n Player --> rock \n Computer == Player",
-                    " Computer --> paper, \n Player --> rock \n Player win!",
-                    " Computer --> scissors, \n Player --> rock \n Player win!"},
-            {" Computer --> rock, \n Player --> paper \n Computer win!",
-                    " Computer --> rock, \n Player --> rock \n Computer == Player",
-                    " Computer --> scissors, \n Player --> paper \n Computer win!"},
-            {" Computer --> rock, \n Player --> scissors \n Computer win!",
-                    " Computer --> paper, \n Player --> scissors \n Player win!",
-                    " Computer --> rock, \n Player --> rock \n Computer == Player"}
+            {"computerEqualsPlayer", "playerWin", "playerWin"},
+
+            {"computerWin", "computerEqualsPlayer", "computerWin"},
+
+            {"computerWin", "playerWin", "computerEqualsPlayer"}
     };
+    private final String[] playerScore = {"playerRock", "playerPaper", "playerScissors"};
+    private final String[] computerScore = {"computerRock", "computerPaper", "computerScissors"};
 
     public String[][] getResult() {
         return result;
     }
+    public String[] getPlayerScore() {
+        return playerScore;
+    }
+    public String[] getComputerScore() {
+        return computerScore;
+    }
+
 }
