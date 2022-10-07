@@ -1,65 +1,106 @@
 package service;
 
+import dto.Bundle;
 import dto.Matrix;
 import dto.Player;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.io.*;
+
+import static java.lang.System.*;
 
 public class GameController {
     private Player player;
-    private Matrix matrix;
-    private ComputerTurn computerTurn;
-    public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private int numberOfGames = 0;
+    public static BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-    public void GameRun() throws IOException {
-        matrix = new Matrix();
-        computerTurn = new ComputerTurn();
-        System.out.println("Добрый день. Веедите ваше имя: ");
-        player = new Player(reader.readLine());
+    private static final Logger loggerDebug = LoggerFactory.getLogger("logger.debug");
+    private static final Logger loggerResult = LoggerFactory.getLogger("logger.result");
+    public static ResourceBundle bundle;
+
+    public void GameRun() {
+
         try {
-            do {
-                int computerScore = computerTurn.getComputerScore();
-                System.out.println(" Choose: \n [0] - Rock,\n [1] - Paper,\n [2] - Scissors");
+            bundle = chooseLanguage();
+            loggerDebug.debug(bundle.getString("start"));
+            Matrix matrix = new Matrix();
+            ComputerTurn computerTurn = new ComputerTurn();
+            loggerDebug.debug(bundle.getString("inputName"));
+            player = new Player(reader.readLine());
 
+            loggerDebug.debug(bundle.getString("numberOfGamesQuestion"));
+            int input = Integer.parseInt(reader.readLine());
+            while (numberOfGames++ != input) {
+                out.println(bundle.getString("choiceMove"));
                 int playerScore = Integer.parseInt(reader.readLine());
-
-                System.out.println(matrix.getResult()[playerScore][computerScore]);
+                int computerScore = computerTurn.getComputerScore();
+                printAction(playerScore, computerScore, matrix);
                 upDateStatistics(playerScore, computerScore);
 
-                System.out.println("\n Введите [x] - для выхода с игры" +
-                        "\n Нажмите [enter] - для продолжения");
+                if (input - numberOfGames > 0) {
+                    loggerDebug.debug(bundle.getString("game") + numberOfGames + "/" + input);
+                } else loggerDebug.debug(bundle.getString("finish"));
 
-            } while ((!(reader.readLine().equalsIgnoreCase("x"))));
+                out.println("\n" + bundle.getString("choice"));
 
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }finally {
+                if (reader.readLine().equalsIgnoreCase("X")) {
+                    loggerDebug.debug("Player left the game  -->Finish!");
+                    loggerResult.info(player.toString());
+                    exit(-1);
+                }
+            }
+
+        } catch (Exception e) {
+            loggerDebug.error("Exception: " + e.getMessage());
+        } finally {
+            loggerResult.debug(player.toString());
             printStatistics();
+
         }
-
-
-
     }
-    public void upDateStatistics(int playerScore, int computerScore){
-        if (playerScore == 0 && computerScore == 1 || playerScore == 0 && computerScore == 2
-                || playerScore == 2 && computerScore == 1) {
+
+    public void upDateStatistics(int playerScore, int computerScore) {
+        if (playerScore == 0 && computerScore == 1 || playerScore == 0 && computerScore == 2 || playerScore == 2 && computerScore == 1) {
             player.setWin(player.getWin() + 1);
-        }
-        if (playerScore == 1 && computerScore == 0 || playerScore == 1 && computerScore == 2
-                || playerScore == 2 && computerScore == 0) {
+        } else if (playerScore == 1 && computerScore == 0 || playerScore == 1 && computerScore == 2 || playerScore == 2 && computerScore == 0) {
             player.setLost(player.getLost() + 1);
+        } else {
+            player.setDraw(player.getDraw() + 1);
         }
+    }
+
+    public void printStatistics() {
+        out.println(player);
+    }
+    public void printAction(int playerScore, int computerScore, Matrix matrix){
+        loggerDebug.debug(bundle.getString(matrix.getPlayerScore()[playerScore]));
+        loggerDebug.debug(bundle.getString(matrix.getComputerScore()[computerScore]));
+        loggerDebug.debug(bundle.getString(matrix.getResult()[playerScore][computerScore]));
 
     }
-    public void printStatistics(){
-        System.out.println();
-        System.out.println("===============================================");
-        System.out.println("Игровая статистика для игрока : " + player.getName());
-        System.out.println("Выиграно   : " + player.getWin());
-        System.out.println("Проигранно : " + player.getLost());
-        System.out.println("===============================================");
+
+    public static ResourceBundle chooseLanguage() throws IOException {
+        ResourceBundle bundle = null;
+        out.println("You should choose and input language: \n[1] - українська, \n[2] - English, \n[3] - Deutsch.");
+
+        switch (reader.readLine()) {
+            case "1":
+                bundle = Bundle.getBundle(new Locale("uk"));
+                break;
+            case "2":
+                bundle = Bundle.getBundle(new Locale("en"));
+                break;
+            case "3":
+                bundle = Bundle.getBundle(new Locale("de"));
+                break;
+            default:
+                out.println("Try again.");
+                chooseLanguage();
+        }
+        return bundle;
     }
 
 }
